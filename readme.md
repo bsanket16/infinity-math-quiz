@@ -1,1 +1,1 @@
-# Infinity Math - Quiz App With Dynamic Report Generation
+# Infinity Math - Quiz Application
