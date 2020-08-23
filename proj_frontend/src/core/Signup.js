@@ -1,9 +1,10 @@
 import React from 'react'
+import Nav from './Nav'
 
 const Signup = () => {
     return (
         <>
-            <h1>Signup</h1>
+            <Nav />
         </>
     )
 }
