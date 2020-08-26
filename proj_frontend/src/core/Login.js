@@ -6,8 +6,8 @@ import Nav from './Nav'
 const Login= () => {
 
     const [ values, setValues ] = useState({
-        email: '',
-        password: '',
+        email: 's@gmail.com',
+        password: 'sanket',
         error: '',
         loading: false,
         didRedirect: false

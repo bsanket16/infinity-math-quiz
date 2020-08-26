@@ -41,7 +41,6 @@ mongoose.connect( process.env.MONGO_URI, {
 // Routes
 app.use('/', require('./routes/auth'))
 app.use('/auth', require('./routes/auth_google'))
-app.use('/', require('./routes/dashboard'))
 
 //PORT
 const PORT = process.env.PORT || 3001
