@@ -1,3 +1,39 @@
 @media (min-width: 300px) {
+    .login {
+        margin-top: -8rem;
+    }
+}
+
+@media (min-width: 400px) {
+    .login {
+        margin-top: -10rem;
+    }
+}
+
+@media (min-width: 576px) {
+    .login {
+        margin-top: -9rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .login {
+        margin-top: -6rem;
+    }
+}
+
+@media (min-width: 840px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 1300px) {
 
 }

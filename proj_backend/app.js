@@ -22,6 +22,7 @@ mongoose.connect( process.env.MONGO_URI, {
 })
 
 //Routes
+app.use('/', require('./routes/auth'))
 
 //PORT
 const PORT = process.env.PORT || 3001

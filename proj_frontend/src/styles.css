@@ -6,12 +6,13 @@ body {
     box-sizing: border-box;
 }
 
+/* navigation */
+
 .nav {
     background-image: url('./core/res/wave.png');
     background-repeat: no-repeat;
-    background-size: contain;
-    background-attachment: fixed;
-    min-height: 50vh;
+    background-size: cover;
+    min-height: 30vh;
 }
 
 .logo {
@@ -21,4 +22,10 @@ body {
 
 .logo:hover {
     opacity: 1;
+}
+
+/* log in */
+
+.login {
+    margin-top: -6rem;
 }
