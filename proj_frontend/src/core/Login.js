@@ -1,18 +1,116 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { Redirect } from 'react-router-dom'
+import { userLogin, authenticate } from '../auth'
 import Nav from './Nav'
 
-const Login = () => {
+const Login= () => {
 
-    const loginForm = () => (
-        <>
-            <h1>Hello there!</h1>
-        </>
-    )
+    const [ values, setValues ] = useState({
+        email: '',
+        password: '',
+        error: '',
+        loading: false,
+        didRedirect: false
+    })
+
+    const { email, password, error, loading, didRedirect } = values
+
+    const handleChange = name => event => {
+        setValues({ ...values, error:false, [name]:event.target.value })
+    }
+
+    const onSubmit = event => {     
+        event.preventDefault()
+        setValues({...values, error: false, loading: false})
+        userLogin({email, password})
+        .then((data) => {
+            if(data.error){
+                setValues({...values, error:data.error, loading: false})
+            }
+            else{
+                authenticate(data, () => {
+                    setValues({...values,
+                        email: '',
+                        password: '',
+                        error: '',
+                        loading: true,
+                        didRedirect: true})
+                })
+            }
+        })
+        .catch((err) => {
+            console.log('Login Request Failed')
+        })
+    }
+
+    const performRedirect = () => {
+        if(didRedirect){
+                return <Redirect to='/dashboard' />
+        }
+    }
+
+    const loadingMsg = () => {
+        return (
+            loading && (
+                <div className="container alert alert-info">
+                    Loading...
+                </div>
+            )
+        )
+    }
+
+    const errorMsg = () => {
+        return (
+                <div className="container alert text-center alert-danger" style={{display: error ? "" : "none"}}>
+                    { error }
+                </div>
+        )
+    }
+
+    const signInForm = () => {
+        return (
+            <>
+
+                <div className="login container">
+                    <div className="row">
+                        <div className="card offset-1 col-10 col-md-7 col-lg-5 p-5 shadow-sm ml-md-auto">
+                            <div className="card-body">
+
+                                <form className="form-signin" autoComplete='off'>
+                                        <h1 className='display-4 mt-3 mb-5 text-dark text-center'>Login</h1>
+                                        
+                                        <div className="form-label-group shadow-sm rounded">
+                                            <input value={ email } type="email" id="inputEmail" className="form-control" 
+                                            placeholder='Email' required autoFocus onChange={ handleChange("email") } />
+                                            <label htmlFor="inputEmail">Email Id</label>
+                                        </div>
+                                            
+                                        <div className="form-label-group shadow-sm rounded">
+                                            <input value={ password } type="password" id="inputPassword" className="form-control mt-1" 
+                                            placeholder='Password' required onChange={ handleChange("password") } />
+                                            <label htmlFor="inputPassword">Password</label>
+                                        </div>
+                                            
+                                    <button onClick={onSubmit} href='/' className="btn btn-lg mt-4 mb-2 btn-block text-white shadow-sm rounded form-btn" type='submit'> Log In </button>
+                                            
+                                    {errorMsg()}
+                                    {loadingMsg()}  
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
 
     return (
         <>
             <Nav />
-            {loginForm()}
+            {signInForm()}
+            {performRedirect()}
         </>
     )
 }
