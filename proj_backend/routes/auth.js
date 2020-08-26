@@ -8,8 +8,5 @@ router.post('/', login)
 
 router.post('/signup', signup)
 
-router.get('/dashboard', (req,res) => {
-    res.send('hello')
-})
 
 module.exports = router

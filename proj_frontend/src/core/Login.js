@@ -91,12 +91,16 @@ const Login= () => {
                                             <label htmlFor="inputPassword">Password</label>
                                         </div>
                                             
-                                    <button onClick={onSubmit} href='/' className="btn btn-lg mt-4 mb-2 btn-block text-white shadow-sm rounded form-btn" type='submit'> Log In </button>
+                                    <button onClick={onSubmit} href='/' className="btn btn-lg mt-4 mb-2 btn-block text-white bg-dark shadow-sm rounded form-btn" type='submit'> Log In </button>
+                                    
                                             
                                     {errorMsg()}
                                     {loadingMsg()}  
 
                                 </form>
+
+                                <a href='http://localhost:3001/auth/google' className="btn btn-lg mt-4 mb-2 btn-block text-white bg-danger shadow-sm rounded form-btn"> Sign in with <i className="lab la-google-plus-g la-lg"></i> </a>
+
 
                             </div>
                         </div>
