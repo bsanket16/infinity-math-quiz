@@ -1,7 +1,10 @@
 const User = require('../models/user')
+const expressJwt = require('express-jwt')   
+const _ = require('lodash')
+const { OAuth2Client } = require('google-auth-library')
+const fetch = require('node-fetch')
 const { validationResult } = require('express-validator')
 const  jwt = require('jsonwebtoken')
-const expressJwt = require('express-jwt')   
 
 
 //login controller
@@ -31,7 +34,7 @@ exports.login = (req, res) => {
         }
 
         //create token
-        const token = jwt.sign({ _id: user.id }, process.env.SECRET)
+        const token = jwt.sign({ _id: user._id }, process.env.SECRET)
         
         //cookie
         res.cookie('token', token, {expire: new Date() + 9999})
@@ -92,4 +95,56 @@ exports.isAuthenticated = (req, res, next) => {
         })
     }
     next()
+}
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT)
+// Google Login
+exports.googleController = (req, res) => {
+    const { idToken } = req.body
+
+client
+    .verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT })
+    .then(response => {
+      // console.log('GOOGLE LOGIN RESPONSE',response)
+        const { username, email } = response.payload
+        if (email) {
+        User.findOne({ email }).exec((err, user) => {
+                if (user) {
+                const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
+                    expiresIn: '7d'
+                })
+                const { _id, email, username } = user
+                return res.json({
+                    token,
+                    user: { _id, email, username }
+                })
+            } else {
+            let password = email + process.env.SECRET
+            user = new User({ username, email, password })
+            user.save((err, data) => {
+            if (err) {
+                console.log('ERROR GOOGLE LOGIN ON USER SAVE', err)
+                return res.status(400).json({
+                    error: 'User signup failed with google'
+                })
+            }
+                const token = jwt.sign(
+                    { _id: data._id },
+                    process.env.JWT_SECRET,
+                    { expiresIn: '7d' }
+            )
+            const { _id, email, username } = data
+            return res.json({
+                token,
+                user: { _id, email, username }
+            })
+            })
+        }
+        })
+    } else {
+        return res.status(400).json({
+            error: 'Google login failed. Try again'
+        })
+    }
+    })
 }

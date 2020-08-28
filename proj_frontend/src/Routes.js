@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Redirect } from 'react-router-dom'
 
 import Login from './core/Login'
 import Signup from './core/Signup'
@@ -17,7 +17,6 @@ const Routes = () => {
                 <ProtectedRoutes path='/auth/login' exact component={ Login } />
                 <ProtectedRoutes path='/auth/signup' exact component={ Signup } />
                 <PrivateRoutes path='/user/dashboard' exact component={ Dashboard } /> 
-                <Route path='/users/dashboard' exact component= { Dashboard } />
 
             </Switch>
         </BrowserRouter>

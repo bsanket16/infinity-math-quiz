@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 const uuidv1 = require('uuidv1')
-// const {ObjectId} = mongoose.Schema
 
 const userSchema = new mongoose.Schema(
     {   
@@ -22,10 +21,6 @@ const userSchema = new mongoose.Schema(
             required: true
         },
         salt: String,
-        // links: [{
-        //     type: ObjectId,
-        //     ref: 'URL'
-        // }]
     },
     { timestamps: true }
 )

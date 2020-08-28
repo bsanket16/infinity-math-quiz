@@ -13,7 +13,6 @@ require('./controllers/passport')(passport)
 const app = express()
 
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 // Sessions
@@ -45,4 +44,4 @@ app.use('/auth', require('./routes/auth_google'))
 const PORT = process.env.PORT || 3001
 
 // Server
-app.listen(PORT, console.log(`App running on port ${PORT}`))
+app.listen(PORT, console.log(`App running on port ${PORT} in ${process.env.NODE_ENV} mode`))

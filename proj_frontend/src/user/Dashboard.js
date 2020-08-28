@@ -5,7 +5,7 @@ const Dashboard = () => {
 
     const board = () => (
         <>
-            <div className="row ml-4 pt-2">
+            <div className="row pt-2">
                 <div className="col-2">
                     <div className="row text-primary mb-3">
                         core
