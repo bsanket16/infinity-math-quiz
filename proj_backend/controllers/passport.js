@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const Google_User = require('../models/google_user')
+const  jwt = require('jsonwebtoken')
 
 module.exports = function(passport) {
     passport.use(new GoogleStrategy({
@@ -9,6 +10,7 @@ module.exports = function(passport) {
         callbackURL: '/auth/google/callback'
     },
     async (accessToken, refreshToken, profile, done) => {
+
         const newUser = {
             googleId: profile.id,
             displayName: profile.displayName
@@ -25,6 +27,8 @@ module.exports = function(passport) {
         } catch (error) {
             console.log(error)
         }
+
+
     }))
 
     passport.serializeUser((user, done) => {

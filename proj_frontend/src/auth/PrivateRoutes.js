@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { isAuthenticated } from './index'
 
+
 const PrivateRoutes = ({ component : Component, ...rest }) => {
     return (
         <Route
@@ -12,7 +13,7 @@ const PrivateRoutes = ({ component : Component, ...rest }) => {
                 ) : (
                     <Redirect
                         to={{
-                            pathname: "/",
+                            pathname: "/auth/login",
                             state: { from: props.location }
                         }}
                     />

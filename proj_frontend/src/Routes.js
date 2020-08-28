@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import Login from './core/Login'
 import Signup from './core/Signup'
@@ -10,15 +10,17 @@ import ProtectedRoutes from './auth/ProtectedRoutes'
 
 const Routes = () => {
     return (
-        <HashRouter>
+        <BrowserRouter>
             <Switch>
+            
+                <Redirect from="/" exact to='/auth/login' />
+                <ProtectedRoutes path='/auth/login' exact component={ Login } />
+                <ProtectedRoutes path='/auth/signup' exact component={ Signup } />
+                <PrivateRoutes path='/user/dashboard' exact component={ Dashboard } /> 
+                <Route path='/users/dashboard' exact component= { Dashboard } />
 
-                <Route path='/' exact component={ Login } />
-                <Route path='/signup' exact component={ Signup } />
-                <Route path='/dashboard' exact component={ Dashboard } />
-                
             </Switch>
-        </HashRouter>
+        </BrowserRouter>
     )
 }
 

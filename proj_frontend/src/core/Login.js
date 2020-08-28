@@ -45,7 +45,7 @@ const Login= () => {
 
     const performRedirect = () => {
         if(didRedirect){
-                return <Redirect to='/dashboard' />
+                return <Redirect to='/user/dashboard' />
         }
     }
 

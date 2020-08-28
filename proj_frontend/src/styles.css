@@ -8,7 +8,7 @@ body {
 
 /* navigation */
 
-.nav {
+.nav{
     background-image: url('./core/res/wave.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -22,6 +22,10 @@ body {
 
 .logo:hover {
     opacity: 1;
+}
+
+.navbar {
+    background-color: #191919;
 }
 
 /* log in */

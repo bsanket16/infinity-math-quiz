@@ -3,8 +3,10 @@ const { validationResult } = require('express-validator')
 const  jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')   
 
+
 //login controller
 exports.login = (req, res) => {
+
     const errors = validationResult(req)
 
     const {email, password} = req.body
@@ -66,7 +68,6 @@ exports.signup = (req, res) => {
         })
     })
 }
-
 
 //logout controller
 exports.logout = (req, res) => {
