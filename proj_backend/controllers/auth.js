@@ -2,7 +2,6 @@ const User = require('../models/user')
 const expressJwt = require('express-jwt')   
 const _ = require('lodash')
 const { OAuth2Client } = require('google-auth-library')
-const fetch = require('node-fetch')
 const { validationResult } = require('express-validator')
 const  jwt = require('jsonwebtoken')
 
@@ -34,14 +33,14 @@ exports.login = (req, res) => {
         }
 
         //create token
-        const token = jwt.sign({ _id: user._id }, process.env.SECRET)
+        const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '7d' })
         
         //cookie
-        res.cookie('token', token, {expire: new Date() + 9999})
+        // res.cookie('token', token, {expire: new Date() + 9999})
 
         //response to frontend
-        const {_id, username, email} = user
-        return res.json({token, user: {_id, username, email}})
+        const {_id, name, email} = user
+        return res.json({token, user: {_id, name, email}})
 
     })
 
@@ -66,7 +65,7 @@ exports.signup = (req, res) => {
         }
         res.json({
             id : user._id,
-            username : user.username,
+            name : user.name,
             email : user.email
         })
     })
@@ -78,49 +77,31 @@ exports.logout = (req, res) => {
     res.json({
         message: 'logout successfully!'
     })
-}
-
-exports.isSignedIn = expressJwt({   
-    secret: process.env.SECRET,
-    algorithms: ['HS256'],
-    userProperty: 'auth'
-})  
-
-// //custom middleware
-exports.isAuthenticated = (req, res, next) => {
-    let checker = req.profile && req.auth && req.profile._id == req.auth._id
-    if(!checker){
-        return res.status(403).json({
-            error: "ACCESS DENIED"
-        })
-    }
-    next()
-}
+} 
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT)
-// Google Login
+
 exports.googleController = (req, res) => {
     const { idToken } = req.body
 
 client
     .verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT })
     .then(response => {
-      // console.log('GOOGLE LOGIN RESPONSE',response)
-        const { username, email } = response.payload
+        const { name, email } = response.payload
         if (email) {
         User.findOne({ email }).exec((err, user) => {
                 if (user) {
                 const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
                     expiresIn: '7d'
                 })
-                const { _id, email, username } = user
+                const { _id, email, name } = user
                 return res.json({
                     token,
-                    user: { _id, email, username }
+                    user: { _id, email, name }
                 })
             } else {
             let password = email + process.env.SECRET
-            user = new User({ username, email, password })
+            user = new User({ name, email, password })
             user.save((err, data) => {
             if (err) {
                 console.log('ERROR GOOGLE LOGIN ON USER SAVE', err)
@@ -130,13 +111,13 @@ client
             }
                 const token = jwt.sign(
                     { _id: data._id },
-                    process.env.JWT_SECRET,
+                    process.env.SECRET,
                     { expiresIn: '7d' }
             )
-            const { _id, email, username } = data
+            const { _id, email, name } = data
             return res.json({
                 token,
-                user: { _id, email, username }
+                user: { _id, email, name }
             })
             })
         }

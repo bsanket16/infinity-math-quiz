@@ -4,11 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const passport = require('passport')
 const session = require('express-session')
-
-// Passport
-require('./controllers/passport')(passport)
 
 const app = express()
 
@@ -22,10 +18,6 @@ app.use(session({
     saveUninitialized: false
 }))
 
-//Passport Middleware
-app.use(passport.initialize())
-app.use(passport.session())
-
 // DB connection
 mongoose.connect( process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -38,7 +30,6 @@ mongoose.connect( process.env.MONGO_URI, {
 
 // Routes
 app.use('/', require('./routes/auth'))
-app.use('/auth', require('./routes/auth_google'))
 
 //PORT
 const PORT = process.env.PORT || 3001
