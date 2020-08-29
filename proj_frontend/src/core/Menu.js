@@ -20,6 +20,7 @@ const Menu = ({ history }) => (
                                         history.push('/')
                                     })
                                 }}> 
+
                                     <i className="logo las la-sign-out-alt text-white la-lg"></i> 
                                 </span>
                             </li>
