@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { logout } from '../auth/index'
+import { signout } from '../helpers/auth'
 
 const Menu = ({ history }) => (
     <>
         <div className="navbar navbar-light fixed-top shadow-sm">
             <div className="container-fluid">
                 <span className="navbar-brand">
-                    <Link to='#' className='text-white'>
+                    <Link to='/' className='text-white'>
                         <i className="logo las la-infinity la-lg"></i>
                     </Link>
                 </span>
@@ -16,7 +16,7 @@ const Menu = ({ history }) => (
 
                             <li className="nav-item">
                                 <span className='nav-link' style={{color:'#A9A9A9', cursor:'pointer'}} onClick={() => {
-                                    logout(() => {
+                                    signout(() => {
                                         history.push('/')
                                     })
                                 }}> 

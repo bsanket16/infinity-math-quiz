@@ -1,8 +1,6 @@
-import { API } from '../backend'
-
 //login
 export const userLogin = user => {
-    return fetch(`${API}/login`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/login`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -18,7 +16,7 @@ export const userLogin = user => {
 
 //signup
 export const userSignup = user => {
-    return fetch(`${API}/signup`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/signup`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -31,39 +29,3 @@ export const userSignup = user => {
     })
     .catch(err => console.log(err))
 }
-
-//logout
-export const logout = next => {
-    if(typeof window !== "undefined"){
-        localStorage.removeItem("jwt")
-        next()
-
-        return fetch(`/logout`, {
-            method: "GET"
-        })
-        .then(response => console.log('logout success'))
-        .catch(err => console.log(err))
-    } 
-}
-
-//authenticate
-export const authenticate = (data, next) => {
-    if(typeof window !== "undefined"){
-        localStorage.setItem("jwt", JSON.stringify(data))
-        next()
-    }
-}
-
-//isAuthenticated
-export const isAuthenticated = () => {
-    if(typeof window == "undefined"){
-        return false
-    }
-    if(localStorage.getItem("jwt")){
-        return JSON.parse(localStorage.getItem("jwt"))
-    }
-    else{
-        return false
-    }
-}
-

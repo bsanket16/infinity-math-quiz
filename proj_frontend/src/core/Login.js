@@ -1,16 +1,17 @@
 import React, {useState} from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { userLogin } from '../auth'
-import { isAuth, authenticate } from '../helpers/auth'
+import { isAuth, authenticate, authenticated } from '../helpers/auth'
 import { GoogleLogin } from 'react-google-login'
 import axios from 'axios'
 import Nav from './Nav'
+import '../styles.css'
 
 const Login= () => {
 
     const [ values, setValues ] = useState({
-        email: 's@gmail.com',
-        password: 'sanket',
+        email: '',
+        password: '',
         error: '',
         loading: false,
         didRedirect: false
@@ -36,9 +37,9 @@ const Login= () => {
         });
     }
     const informParent = response => {
-        authenticate(response, () => {
-        isAuth() && isAuth().role === 'admin'
-            ? console.log('object')
+        authenticated(response, () => {
+        isAuth()
+            ? setValues({...values, didRedirect:true})
             : console.log('object')
         })
     }
@@ -68,6 +69,7 @@ const Login= () => {
             }
         })
         .catch((err) => {
+            console.log(err)
             console.log('Login Request Failed')
         })
     }
@@ -90,7 +92,7 @@ const Login= () => {
 
     const errorMsg = () => {
         return (
-                <div className="container alert text-center alert-danger" style={{display: error ? "" : "none"}}>
+                <div className="container alert text-center alert-danger mt-3" style={{fontSize:'0.9rem', display: error ? "" : "none"}}>
                     { error }
                 </div>
         )
@@ -106,30 +108,29 @@ const Login= () => {
                             <div className="card-body">
 
                                 <form className="form-signin" autoComplete='off'>
-                                        <h1 className='display-4 mt-3 mb-5 text-dark text-center'>Login</h1>
+                                        {/* <h1 className='display-4 mt-3 mb-5 text-dark text-center'>Login</h1> */}
                                         
                                         <div className="form-label-group shadow-sm rounded">
                                             <input value={ email } type="email" id="inputEmail" className="form-control" 
                                             placeholder='Email' required autoFocus onChange={ handleChange("email") } />
-                                            <label htmlFor="inputEmail">Email Id</label>
+                                            <label htmlFor="inputEmail">email</label>
                                         </div>
                                             
                                         <div className="form-label-group shadow-sm rounded">
-                                            <input value={ password } type="password" id="inputPassword" className="form-control mt-1" 
+                                            <input value={ password } type="password" id="inputPassword" className="form-control mt-3" 
                                             placeholder='Password' required onChange={ handleChange("password") } />
-                                            <label htmlFor="inputPassword">Password</label>
+                                            <label htmlFor="inputPassword">password</label>
+                                        </div>
+
+                                        <div className="signup mb-2">
+                                            <span className="text-primary float-right mr-2">
+                                                <Link to='/auth/signup'>new here?</Link>
+                                            </span>
                                         </div>
                                             
-                                    <button onClick={onSubmit} href='/' className="btn btn-lg mt-4 mb-2 btn-block text-white bg-dark shadow-sm rounded form-btn" type='submit'> Log In </button>
+                                    <button onClick={onSubmit} href='/' className="btn btn-login btn-lg mt-5 p-2 mb-3 btn-block text-white bg-dark shadow-sm rounded form-btn" type='submit'> Log In </button>
                                     
                                             
-                                    {errorMsg()}
-                                    {loadingMsg()}  
-
-                                </form>
-
-                                {/* <a href='http://localhost:3001/auth/google' className="btn btn-lg mt-4 mb-2 btn-block text-white bg-danger shadow-sm rounded form-btn"> Sign in with <i className="lab la-google-plus-g la-lg"></i> </a> */}
-
                                 <GoogleLogin
                                     clientId={`${process.env.REACT_APP_GOOGLE_CLIENT}`}
                                     onSuccess={responseGoogle}
@@ -139,15 +140,23 @@ const Login= () => {
                                         <button
                                         onClick={renderProps.onClick}
                                         disabled={renderProps.disabled}
-                                        className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline'
+                                        className=' container btn btn-lg btn-google btn-block text-white bg-danger shadow-sm rounded'
                                         >
-                                        <div className=' p-2 rounded-full '>
-                                            <i className='fab fa-google ' />
+                                        <div className="google-btn">
+                                            <i className='lab la-google-plus la-lg text-center pt-1' />
+                                            <span className="ml-3">Sign In with Google </span>
                                         </div>
-                                        <span className='ml-4'>Sign In with Google</span>
                                         </button>
                                     )}
                                 ></GoogleLogin>
+
+                                    {errorMsg()}
+                                    {loadingMsg()}  
+
+                                </form>
+
+
+
 
                             </div>
                         </div>
