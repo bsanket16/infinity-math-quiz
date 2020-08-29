@@ -1,6 +1,4 @@
 const User = require('../models/user')
-const expressJwt = require('express-jwt')   
-const _ = require('lodash')
 const { OAuth2Client } = require('google-auth-library')
 const { validationResult } = require('express-validator')
 const  jwt = require('jsonwebtoken')

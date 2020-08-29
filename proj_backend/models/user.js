@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 const uuidv1 = require('uuidv1')
+const {ObjectId} = mongoose.Schema
 
 const userSchema = new mongoose.Schema(
     {   
@@ -20,6 +21,10 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        quizReports: [{
+            type: ObjectId,
+            ref: 'quizReport'
+        }],
         salt: String,
     },
     { timestamps: true }
@@ -46,7 +51,7 @@ userSchema.methods = {
             return crypto
             .createHmac('sha256', this.salt)
             .update(plainpassword)
-            .digest('hex');
+            .digest('hex')
         } catch (err) {
             return ""
         }

@@ -30,11 +30,11 @@ const Login= () => {
         })
             .then(res => {
             console.log(res.data)
-            informParent(res);
+            informParent(res)
         })
             .catch(error => {
             console.log('GOOGLE SIGN IN ERROR', error.response)
-        });
+        })
     }
     const informParent = response => {
         authenticated(response, () => {
@@ -107,7 +107,7 @@ const Login= () => {
                         <div className="card offset-1 col-10 col-md-7 col-lg-5 p-5 shadow-sm ml-md-auto">
                             <div className="card-body">
 
-                                <form className="form-signin" autoComplete='off'>
+                                <form className="form-signin " autoComplete='off'>
                                         {/* <h1 className='display-4 mt-3 mb-5 text-dark text-center'>Login</h1> */}
                                         
                                         <div className="form-label-group shadow-sm rounded">
