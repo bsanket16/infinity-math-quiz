@@ -7,13 +7,27 @@ const quizSchema = new mongoose.Schema(
             required: true,
             trim: true
         },
-        options : [
-            {option: {type: String, required: true}},
-            {option: {type: String, required: true}},
-            {option: {type: String, required: true}},
-            {option: {type: String, required: true}}
-        ],
-        answer: {
+        option_one : {
+            type: String,
+            required: true,
+            trim: true
+        },
+        option_two : {
+            type: String,
+            required: true,
+            trim: true
+        },
+        option_three : {
+            type: String,
+            required: true,
+            trim: true
+        },
+        option_four : {
+            type: String,
+            required: true,
+            trim: true
+        },
+        correct_answer: {
             type: String,
             required: true
         },
