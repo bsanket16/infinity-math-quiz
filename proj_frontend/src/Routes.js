@@ -7,6 +7,7 @@ import Dashboard from './user/Dashboard'
 
 import PrivateRoutes from './auth/PrivateRoutes'
 import ProtectedRoutes from './auth/ProtectedRoutes'
+import Quiz from './user/Quiz'
 
 const Routes = () => {
     return (
@@ -17,6 +18,7 @@ const Routes = () => {
                 <ProtectedRoutes path='/auth/login' exact component={ Login } />
                 <ProtectedRoutes path='/auth/signup' exact component={ Signup } />
                 <PrivateRoutes path='/user/dashboard' exact component={ Dashboard } /> 
+                <PrivateRoutes path='/quiz/practice' exact component={ Quiz } /> 
 
             </Switch>
         </BrowserRouter>

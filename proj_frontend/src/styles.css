@@ -246,7 +246,7 @@ body {
 }
 
 .calendar {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.9rem;
     padding-left: 30px !important;
     padding-right: 30px !important;
@@ -271,4 +271,103 @@ body {
 
 .test-desc {
     opacity: 0.9;
+    word-spacing: 0.15rem;
+}
+
+.nexty {
+    cursor: not-allowed;
+    opacity: 0.3 !important;
+    margin-left: 64rem;
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+/* Quiz App */
+
+.quizArea {
+    margin: 140px 100px 0px 100px;
+}
+
+.card-header {
+    background-color: #7223D7 !important;
+    color: #F6F6F6;
+    min-height: 10vh;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.first {
+    margin-bottom: 40px !important;
+}
+
+.next {
+    opacity: 0.5 !important;
+    margin-left: 64rem;
+    padding-top: 30px;
+    cursor: pointer;
+    padding-bottom: 40px;
+}
+
+label {
+    cursor: pointer;
+}
+
+label:hover {
+    background-color: #f0f8f0 !important;
+}
+
+.report-text {
+    font-size: 1.6rem;
+    opacity: 0.6;
+    font-weight: 600;
+    letter-spacing: 0.01rem;
+}
+
+.score {
+    font-size: 3.2rem !important;
+    opacity: 1 !important;
+    font-weight: 600;
+}
+
+.component {
+    cursor: pointer;
+}
+
+.component:hover {
+    background-color: #f0f8f0 !important;
+}
+
+.start-testy {
+    border-radius: 12px !important;
+    min-height: 20vh;
+    margin-top: 100px;
+    background-color: #EEA11D !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+    font-size: 2rem;
+    font-weight: 500;
+
+}
+
+.start-testyy {
+    border-radius: 12px !important;
+    min-height: 20vh;
+    margin-top: 100px;
+    background-color: #3661F2 !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+    font-size: 2rem;
+    font-weight: 500;
+
+}
+
+.suggest{
+    color: #fff !important;
+    opacity: 0.8 !important;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.back-to {
+    font-size: 0.9rem;
 }
