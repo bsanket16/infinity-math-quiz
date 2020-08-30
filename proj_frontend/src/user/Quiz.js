@@ -58,7 +58,12 @@ class Quiz extends React.Component {
             let plusScore = this.state.score + points
             let plusCorrectAnswers = this.state.correctAnswers + 1
             this.setState({score: plusScore, correctAnswers: plusCorrectAnswers})
-        } else {
+        } 
+        else if (value !== correct_answer) {
+            let plusWrongAnswers  = this.state.wrongAnswers + 1
+            this.setState({wrongAnswers: plusWrongAnswers})
+        }
+        else {
             let plusWrongAnswers  = this.state.wrongAnswers + 1
             this.setState({wrongAnswers: plusWrongAnswers})
         }
